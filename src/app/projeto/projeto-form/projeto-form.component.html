@@ -1,0 +1,163 @@
+<form class="row g-3 needs-validation" novalidate [formGroup]="form">
+  <!--NOME-->
+  <div class="col-md-6">
+    <label for="name" class="form-label">Nome</label>
+    <input
+      [readonly]="isReadonly"
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Digite seu nome completo.."
+      formControlName="name"
+      [ngClass]="{
+        'is-invalid': submitted && (hasError('name')?.['required']) || (hasError('name')?.['minlength']) || (hasError('name')?.['maxlength'])
+      }"
+    />
+
+    <!--ERRORS-->
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('name') && (hasError('name')?.['required'])"
+      errorMessage="
+      Por favor informe um nome.
+  "
+    >
+    </app-error-message>
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('name') && (hasError('name')?.['minlength'])"
+      errorMessage="
+      O nome precisa ter no minimo 3 caracteres.
+
+  "
+    >
+    </app-error-message>
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('name') && (hasError('name')?.['maxlength'])"
+      errorMessage="
+    O nome não devendo ter mais que 100 caracteres.
+"
+    >
+    </app-error-message>
+    <!--fim ERRORS-->
+  </div>
+
+  <!--EMAIL-->
+  <div class="col-md-6">
+    <label for="email" class="form-label">Email</label>
+    <input
+      [readonly]="isReadonly"
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="email@email.com"
+      formControlName="email"
+      [ngClass]="{
+        'is-invalid': submitted && (hasError('email')?.['required']) || (hasError('email')?.['email']) 
+      }"
+    />
+    <!--ERRORS-->
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('email') && (hasError('email')?.['required'])"
+      errorMessage="
+    Por favor informe um email.
+    "
+    >
+    </app-error-message>
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('email') && (hasError('email')?.['email'])"
+      errorMessage="
+    Por favor informe um email válido.
+  "
+    >
+    </app-error-message>
+    <!--fim ERRORS-->
+  </div>
+
+  <!--TELEFONE-->
+  <div class="col-md-6">
+    <label for="phone" class="form-label">Telefone</label>
+    <input
+      [readonly]="isReadonly"
+      type="text"
+      class="form-control"
+      id="phone"
+      placeholder="(00) 00000-0000"
+      formControlName="phone"
+      [ngClass]="{
+        'is-invalid': submitted &&  (hasError('phone')?.['number'])
+      }"
+      
+    />
+    <!--ERRORS-->
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('phone') && (hasError('phone')?.['number'])"
+      errorMessage="
+      Por favor informe um numero válido.
+      "
+    >
+    </app-error-message>
+    <!--fim ERRORS-->
+  </div>
+
+  <!--PROFISSAO-->
+  <div class="col-md-6">
+    <label for="job" class="form-label">Profissão</label>
+    <input
+      [readonly]="isReadonly"
+      type="text"
+      class="form-control"
+      id="job"
+      placeholder="Profissão"
+      formControlName="job"
+      [ngClass]="{
+        'is-invalid': submitted && (hasError('job')?.['required']) || (hasError('job')?.['minlength']) || (hasError('job')?.['maxlength'])
+      }"
+    />
+    <!--ERRORS-->
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" submitted && hasError('job') && (hasError('job')?.['required'])"
+      errorMessage="
+        Por favor informe sua profissão, caso não tenha coloque desempregado.
+      "
+    >
+    </app-error-message>
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" hasError('job') && (hasError('job')?.['minlength'])"
+      errorMessage="
+      Deve conter no minimo três caracteres
+      "
+    >
+    </app-error-message>
+    <app-error-message
+      class="invalid-feedback"
+      *ngIf=" hasError('job') && (hasError('job')?.['maxlength'])"
+      errorMessage="
+      Não deve ultrapassar mais de 100 caracteres.
+    "
+    >
+    </app-error-message>
+    <!--fim ERRORS-->
+  </div>
+
+  <!--BUTTONS-->
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+      {{ isReadonly ? "Voltar" : "Salvar" }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="onCancel()"
+      [hidden]="isReadonly"
+    >
+      Cancelar
+    </button>
+  </div>
+</form>

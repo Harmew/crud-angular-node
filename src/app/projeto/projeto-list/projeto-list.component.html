@@ -1,0 +1,85 @@
+<div class="card">
+  <div class="card-header">
+    <div class="float-start">
+      <h4>Clientes</h4>
+    </div>
+    <div class="float-end">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [routerLink]="['novo']"
+        [disabled]="error"
+      >
+        Novo Cliente
+      </button>
+      <button type="button" class="btn btn-secondary ms-1" (click)="onReload()">
+        Atualizar
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table
+      class="table table-hover"
+      *ngIf="clients$ | async as clients; else loading"
+    >
+      <thead class="table">
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Telefone</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td class="text-break">
+            {{ client.name }}
+          </td>
+          <td class="text-break">{{ client.email }}</td>
+          <td class="text-break">{{ client.phone }}</td>
+          <td class="text-end">
+            <span>
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm mb-1"
+                routerLink="/projeto/vizualizar/{{ client._id }}"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  fill="currentColor"
+                  class="bi bi-search"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                class="btn btn-outline-warning btn-sm mb-1 ms-1"
+                (click)="onEdit(client._id)"
+              >
+                Atualizar
+              </button>
+              <button
+                class="btn btn-outline-danger mb-1 btn-sm ms-1"
+                (click)="onDelete(client)"
+              >
+                Remover
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #loading>
+      <span class="sr-only" [ngClass]="{ 'text-danger': error === true }">{{
+        error
+          ? "Erro ao carregar clientes, entre com contato com o administrador."
+          : "Loading..."
+      }}</span>
+    </ng-template>
+  </div>
+</div>
