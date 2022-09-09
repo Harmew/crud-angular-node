@@ -7,7 +7,7 @@ import { Observable, take } from 'rxjs';
   providedIn: 'root',
 })
 export class ClientService {
-  private URL: string = 'http://localhost:3000/clients';
+  private URL: string = 'https://api-crud-angular.vercel.app/api/clients';
 
   constructor(private http: HttpClient) {}
 
